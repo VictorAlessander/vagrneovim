@@ -51,6 +51,8 @@ return require('packer').startup(function(use)
 
   use 'RRethy/nvim-base16'
 
+  use 'nvimtools/none-ls.nvim'
+
   end
 
 )
