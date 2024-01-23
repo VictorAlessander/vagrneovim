@@ -12,7 +12,7 @@ null_ls.setup({
 				callback = function()
 					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
 					-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-					vim.lsp.buf.format({ bufnr = bufrn })
+					vim.lsp.buf.format({ bufnr = bufrn, timeout_ms = 9000 })
 				end,
 			})
 		end
@@ -22,7 +22,9 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.eslint,
 		null_ls.builtins.formatting.prettier,
-		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.black.with({
+			extra_args = { "--line-length=120" },
+		}),
 		null_ls.builtins.formatting.isort,
 	},
 })
