@@ -52,12 +52,21 @@ return require("packer").startup(function(use)
 
 	use("RRethy/nvim-base16")
 
-	use("nvimtools/none-ls.nvim")
+	use({
+		"nvimtools/none-ls.nvim",
+		requires = { { "nvimtools/none-ls-extras.nvim" } },
+	})
 
 	use({
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-end
-)
+
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
+end)

@@ -2,6 +2,7 @@ local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null_ls.setup({
+	debug = true,
 	-- you can reuse a shared lspconfig on_attach callback here
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
@@ -12,7 +13,7 @@ null_ls.setup({
 				callback = function()
 					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
 					-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-					vim.lsp.buf.format({ bufnr = bufrn, timeout_ms = 9000 })
+					vim.lsp.buf.format({ bufnr = bufrn, timeout_ms = 5000 })
 				end,
 			})
 		end
@@ -20,7 +21,7 @@ null_ls.setup({
 
 	sources = {
 		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.diagnostics.eslint,
+		require("none-ls.diagnostics.eslint"),
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.black.with({
 			extra_args = { "--line-length=120" },
