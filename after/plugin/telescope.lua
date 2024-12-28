@@ -13,7 +13,6 @@ telescope.setup({
 		file_ignore_patterns = {
 			"node_modules",
 			"front_end",
-			"pwmain/static",
 			"r.js",
 			"venv"
 		}
