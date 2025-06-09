@@ -18,7 +18,7 @@ return {
     vim.keymap.set('n', '<leader>fq', fzf_lua.resume, {})
     -- Shortcut for searching your Neovim configuration files
     vim.keymap.set('n', '<leader>fn', function()
-      fzf_lua.find_files { cwd = vim.fn.stdpath 'config' }
+      fzf_lua.files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
   end,
 }

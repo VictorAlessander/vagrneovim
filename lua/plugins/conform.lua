@@ -30,6 +30,7 @@ return {
       end,
       notify_on_error = false,
       formatters_by_ft = {
+        format_on_save = { async = true, lsp_format = 'fallback' },
         lua = { 'stylua' },
         python = { 'isort', 'black' },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
