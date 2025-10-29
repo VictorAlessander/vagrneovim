@@ -23,12 +23,12 @@ return {
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 5000,
             lsp_format = 'fallback',
           }
         end
       end,
-      notify_on_error = false,
+      notify_on_error = true,
       formatters_by_ft = {
         format_on_save = { async = true, lsp_format = 'fallback' },
         lua = { 'stylua' },

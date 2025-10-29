@@ -61,7 +61,7 @@ return {
         map('gd', require('fzf-lua').lsp_definitions, '[G]oto [D]efinition')
 
         -- Find references for the word under your cursor.
-        map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
+        map('vrr', require('fzf-lua').lsp_references, '[G]oto [R]eferences (vrr)')
 
         -- Jump to the implementation of the word under your cursor.
         --  Useful when your language has ways of declaring types without an actual implementation.
@@ -82,15 +82,19 @@ return {
 
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
-        map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('<leader>vrn', vim.lsp.buf.rename, '[R]e[n]ame (vrn)')
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+        map('<leader>vca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header.
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+        map('<leader>vd', vim.diagnostic.open_float, 'Open Float')
+        map('[d', vim.diagnostic.goto_next, 'Go to Next')
+        map(']d', vim.diagnostic.goto_prev, 'Go to Previous')
 
         -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
         ---@param client vim.lsp.Client
