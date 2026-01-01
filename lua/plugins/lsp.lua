@@ -201,15 +201,15 @@ return {
       --marksman = {},
       -- clangd = {},
       -- gopls = {},
-      pyright = {
-        capabilities = {
-          workspace = {
-            didChangeWatchedFiles = {
-              dynamicRegistration = true,
-            },
-          },
-        },
-      },
+      --pyright = {
+      --  capabilities = {
+      --    workspace = {
+      --      didChangeWatchedFiles = {
+      --        dynamicRegistration = true,
+      --      },
+      --    },
+      --  },
+      --},
 
       ruff = {
         capabilities = {
