@@ -93,8 +93,12 @@ return {
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         map('<leader>vd', vim.diagnostic.open_float, 'Open Float')
-        map('[d', vim.diagnostic.goto_next, 'Go to Next')
-        map(']d', vim.diagnostic.goto_prev, 'Go to Previous')
+        map('[d', function()
+          vim.diagnostic.jump { count = 1, float = true }
+        end, 'Go to Next')
+        map(']d', function()
+          vim.diagnostic.jump { count = -1, float = true }
+        end, 'Go to Previous')
 
         -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
         ---@param client vim.lsp.Client
@@ -269,18 +273,19 @@ return {
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+    -- Apply the overrides above on top of nvim-lspconfig's defaults (Nvim 0.11+ API).
+    -- `vim.lsp.config` merges with the config shipped in nvim-lspconfig's `lsp/` directory.
+    vim.lsp.config('*', { capabilities = capabilities })
+    for server_name, server in pairs(servers) do
+      vim.lsp.config(server_name, server)
+    end
+
+    -- mason-lspconfig v2 calls `vim.lsp.enable()` for every server installed through Mason.
+    -- stylua is excluded because conform already runs it as a formatter.
     require('mason-lspconfig').setup {
       ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-      automatic_installation = false,
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
-        end,
+      automatic_enable = {
+        exclude = { 'stylua' },
       },
     }
   end,
